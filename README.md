@@ -25,7 +25,7 @@ Installing
 
 #### 1. Clone the repository
 ```bash
-git clone https://github.com/GPGTools/GPGMail.git
+git clone https://github.com/awkimball/GPGMail.git
 cd GPGMail
 ```
 
