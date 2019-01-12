@@ -4,7 +4,7 @@ GPGMail - FOSS Edition
 GPGMail is a plugin for OS X's Mail.app, which let's you  
 send and receive secure, OpenPGP encrypted and signed messages.
 
-This version is a modified fork of the original, provided free for the community with license checks and reference to original profject and team removed from source.
+This version is a modified fork of the original, provided free for the community with license checks and reference to original project and team removed from source.
 
 Important
 -------
