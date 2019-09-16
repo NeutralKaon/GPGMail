@@ -849,10 +849,6 @@ static BOOL gpgMailWorks = NO;
     return [self hasActiveContract] || [[self remainingTrialDays] integerValue] > 0;
 }
 
-- (BOOL)hasActiveContractOrActiveTrial {
-    return [self hasActiveContract] || [[self remainingTrialDays] integerValue] > 0;
-}
-
 - (NSNumber *)remainingTrialDays {
     NSDictionary *contractInformation = [self contractInformation];
     if(!contractInformation[@"ActivationRemainingTrialDays"]) {
@@ -878,50 +874,6 @@ static BOOL gpgMailWorks = NO;
         NSDictionary *supportPlanActivationInformation = [self supportPlanInformationForAutomaticActivation];
         [supportPlanAssistantWindowController performAutomaticSupportPlanActivationWithActivationCode:supportPlanActivationInformation[kGMSupportPlanInformationActivationCodeKey] email:supportPlanActivationInformation[kGMSupportPlanInformationActivationEmailKey]];
     }
-}
-
-- (BOOL)shouldShowSupportPlanActivationDialog {
-    if(![self hasActiveContractOrActiveTrial]) {
-        [self saveDateActivationDialogWasLastShown];
-        return YES;
-    }
-    NSDictionary *contractInfo = [self contractInformation];
-    // Trial has never been started?
-    if(![contractInfo valueForKey:@"ActivationRemainingTrialDays"]) {
-        [self saveDateActivationDialogWasLastShown];
-        return YES;
-    }
-    NSDate *date = [[NSUserDefaults standardUserDefaults] objectForKey:@"__gme3_spd_last_shown_date"];
-    if(!date) {
-        [self saveDateActivationDialogWasLastShown];
-        return YES;
-    }
-    // Check if between date now and date last are 3 days.
-
-    NSDate *fromDateTime = date;
-    NSDate *toDateTime = [NSDate date];
-
-    NSDate *fromDate;
-    NSDate *toDate;
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-
-    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&fromDate
-                 interval:NULL forDate:fromDateTime];
-    [calendar rangeOfUnit:NSCalendarUnitDay startDate:&toDate
-                 interval:NULL forDate:toDateTime];
-    
-    NSDateComponents *difference = [calendar components:NSCalendarUnitDay
-                                               fromDate:fromDate toDate:toDate options:0];
-    if([difference day] >= 3) {
-        [self saveDateActivationDialogWasLastShown];
-        return YES;
-    }
-    return NO;
-}
-
-- (void)saveDateActivationDialogWasLastShown {
-    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"__gme3_spd_last_shown_date"];
 }
 
 - (BOOL)shouldShowSupportPlanActivationDialog {
