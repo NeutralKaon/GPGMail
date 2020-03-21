@@ -39,7 +39,7 @@
 
 
 
-extern NSString *GPGMailKeyringUpdatedNotification;
+extern NSString * _Nullable GPGMailKeyringUpdatedNotification;
 extern NSString *gpgErrorIdentifier; // This identifier is used to set and find GPGErrorCodes in NSData.
 
 @class Message, GMMessageRulesApplier, GMKeyManager;
